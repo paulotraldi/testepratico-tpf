@@ -199,10 +199,7 @@ export default class UserCourseMnt extends Component {
             <table className="table mt-4">
                 <thead>
                     <tr>
-                         <th>Id Curso user</th>
-                         <th>Id user</th>
-                         <th>Id Curso </th>
-                         <th>Curso</th>
+                        <th>Curso</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -217,9 +214,6 @@ export default class UserCourseMnt extends Component {
         return this.state.list.filter(usercourse=>usercourse.id_user == iduser).map(usercourse => {
             return (
                 <tr key={usercourse.id_usercourse}>
-                    <td>{usercourse.id_usercourse}</td>
-                    <td>{usercourse.id_user}</td>
-                    <td>{usercourse.idcoursem}</td>
                     <td>{usercourse.description}</td>
                     <td>
                         <button className="btn btn-danger ml-2"
