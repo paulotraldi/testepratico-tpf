@@ -1,0 +1,552 @@
+{
+    "openapi":"3.0.0",
+    "info": {
+        "title":"Api de manntenção de usuários e cursos",
+        "description":"Essa API tem como objetivo manipular os cadastros de usuários e cursos.",
+        "termsOfService":"http://localhost:3003/terms/",
+        "contact": {
+            "email": "phtraldi@gmail.com"
+        },
+        "version":"1.0.0"
+    },
+    "servers": [{
+        "url":"http://localhost:3003/",
+        "description": "Api de produção"
+    }],
+    "paths":{
+        "/login":{
+			"get": {
+				"tags": ["Login"],
+				"summary": "Login a API",
+				"description": "Validar o acesso a API",
+                "parameters":[
+                    {
+                        "name":"user",
+                        "in":"header",
+                        "description":"E-mail do usuário para acesso a Api.",
+                        "required": true
+                    },
+                    {
+                        "name":"password",
+                        "in":"header",
+                        "description":"Senha do usuário. para acessoa a Api",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Se o usuário for validado, é retornado um objeto \"user\", caso contrário retorna um objeto vazio.",
+                        "content":{
+                            "x-www-form-urlencoded":{
+                                "schema":{
+                                    "type":"object",
+                                      "$ref":"#components/schemas/User"
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+			
+               
+			}
+		},
+        "/users":{
+			"get": {
+				"tags": ["Users"],
+				"summary": "Usuários cadastrados",
+				"description": "Retorna todos os usuários cadastrados.",
+                "parameters":[
+                    {
+                        "name":"user",
+                        "in":"header",
+                        "description":"E-mail do usuário para acesso a Api.",
+                        "required": true
+                    },
+                    {
+                        "name":"password",
+                        "in":"header",
+                        "description":"Senha do usuário. para acessoa a Api",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Retorna um array com os usuários cadastrados.",
+                        "content":{
+                            "x-www-form-urlencoded":{
+                                "schema":{
+                                    "type":"array",
+                                     "items":{
+                                        "$ref":"#components/schemas/User"
+                                     } 
+                                }
+                            }
+                        }
+
+                    }
+                }
+			},
+            "post": {
+				"tags": ["Users"],
+				"summary": "Incluir usuário",
+				"description": "Inclui o usuário de acordo com os parametros informados",
+                "consumes": [
+					"x-www-form-urlencodeda"
+				],
+                "produces": [
+					"x-www-form-urlencoded"
+				],
+                "parameters":[
+                    {
+                        "name":"user",
+                        "in":"header",
+                        "description":"E-mail do usuário para acesso a Api.",
+                        "required": true
+                    },
+                    {
+                        "name":"password",
+                        "in":"header",
+                        "description":"Senha do usuário. para acessoa a Api",
+                        "required": true
+                    },
+                    {
+                        "name":"name",
+                        "in":"body",
+                        "description":"Nome do usuário",
+                        "required": true
+                    },
+                    {
+                        "name":"email",
+                        "in":"body",
+                        "description":"Email do usuário",
+                        "required": true
+                    },
+                    {
+                        "name":"password",
+                        "in":"body",
+                        "description":"Senha do usuário",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Caso o usuário seja gravado, é retornado um objeto \"user\", com os dados do usuário, caso contrário retorna a mensagem de erro.",
+                        "content":{
+                            "x-www-form-urlencoded":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#components/schemas/User"
+                                }
+                            }
+                        }
+
+                    }
+                }
+			},
+            "put": {
+				"tags": ["Users"],
+				"summary": "Alterar usuário",
+				"description": "Altera o usuário de acordo com os parametros informados",
+                "consumes": [
+					"x-www-form-urlencodeda"
+				],
+                "produces": [
+					"x-www-form-urlencoded"
+				],
+                "parameters":[
+                    {
+                        "name":"user",
+                        "in":"header",
+                        "description":"E-mail do usuário para acesso a Api.",
+                        "required": true
+                    },
+                    {
+                        "name":"password",
+                        "in":"header",
+                        "description":"Senha do usuário. para acessoa a Api",
+                        "required": true
+                    },
+                    {
+                        "name":"id",
+                        "in":"body",
+                        "description":"Id do usuário",
+                        "required": true
+                    },
+                    {
+                        "name":"name",
+                        "in":"body",
+                        "description":"Nome do usuário",
+                        "required": true
+                    },
+                    {
+                        "name":"email",
+                        "in":"body",
+                        "description":"Email do usuário",
+                        "required": true
+                    },
+                    {
+                        "name":"password",
+                        "in":"body",
+                        "description":"Senha do usuário",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Caso o usuário seja alterado, é retornado um objeto \"user\", com os dados atualizado, caso contrário retorna a mensagem de erro.",
+                        "content":{
+                            "x-www-form-urlencoded":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+			}
+		},
+        "/users/{id}":{
+			"get": {
+				"tags": ["Users"],
+				"summary": "Busca o usuário pelo id",
+				"description": "Retorna o usuário cadastrado com o id informado.",
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"Id do usuário a ser retornado.",
+                        "required": true
+                    },
+                    {
+                        "name":"user",
+                        "in":"header",
+                        "description":"E-mail do usuário para acesso a Api.",
+                        "required": true
+                    },
+                    {
+                        "name":"password",
+                        "in":"header",
+                        "description":"Senha do usuário. para acessoa a Api",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Se o usuário estiver cadastrado, é retornado um objeto \"user\" com seus dados, caso contrário retorna um objeto vazio.",
+                        "content":{
+                            "x-www-form-urlencoded":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#components/schemas/User"
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+			},
+            "delete": {
+				"tags": ["Users"],
+				"summary": "Excluir usuário",
+				"description": "Exclui o usuário cadastrado com o id informado.",
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"Id do usuário a ser excluído.",
+                        "required": true
+                    },
+                    {
+                        "name":"user",
+                        "in":"header",
+                        "description":"E-mail do usuário para acesso a Api.",
+                        "required": true
+                    },
+                    {
+                        "name":"password",
+                        "in":"header",
+                        "description":"Senha do usuário. para acessoa a Api",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Retorna a mensagem de exito ou falha na operação.",
+                        "content":{
+                            "x-www-form-urlencoded":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#components/schemas/Msg"
+                                }
+                            }
+                        }
+                    }
+                }
+			}
+		},
+        "/courses":{
+			"get": {
+				"tags":[" Courses"],
+				"summary": "Cursos cadastrados",
+				"description": "Retorna todos os cursos cadastrados.",
+                "parameters":[
+                    {
+                        "name":"user",
+                        "in":"header",
+                        "description":"E-mail do usuário para acesso a Api.",
+                        "required": true
+                    },
+                    {
+                        "name":"password",
+                        "in":"header",
+                        "description":"Senha do usuário. para acessoa a Api",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Retorna um array com os cursos cadastrados.",
+                        "content":{
+                            "x-www-form-urlencoded":{
+                                "schema":{
+                                    "type":"array",
+                                     "items":{
+                                        "$ref":"#components/schemas/Course"
+                                     } 
+                                }
+                            }
+                        }
+
+                    }
+                }
+			},
+            "post": {
+				"tags":[" Courses"],
+				"summary": "Incluir curso",
+				"description": "Inclui o curso de acordo com os parametros informados",
+                "consumes": [
+					"x-www-form-urlencodeda"
+				],
+                "produces": [
+					"x-www-form-urlencoded"
+				],
+                "parameters":[
+                    {
+                        "name":"user",
+                        "in":"header",
+                        "description":"E-mail do usuário para acesso a Api.",
+                        "required": true
+                    },
+                    {
+                        "name":"password",
+                        "in":"header",
+                        "description":"Senha do usuário. para acessoa a Api",
+                        "required": true
+                    },
+                    {
+                        "name":"description",
+                        "in":"body",
+                        "description":"Descrição do curso.",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Caso o cusro seja gravado, é retornado um objeto \"course\", com os dados do curso, caso contrário retorna a mensagem de erro.",
+                        "content":{
+                            "x-www-form-urlencoded":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#components/schemas/Couser"
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+			},
+            "put": {
+				"tags":[" Courses"],
+				"summary": "Alterar curso",
+				"description": "Altera o curso de acordo com os parametros informados",
+                "consumes": [
+					"x-www-form-urlencodeda"
+				],
+                "produces": [
+					"x-www-form-urlencoded"
+				],
+                "parameters":[
+                    {
+                        "name":"user",
+                        "in":"header",
+                        "description":"E-mail do usuário para acesso a Api.",
+                        "required": true
+                    },
+                    {
+                        "name":"password",
+                        "in":"header",
+                        "description":"Senha do usuário. para acessoa a Api",
+                        "required": true
+                    },
+                    {
+                        "name":"id",
+                        "in":"body",
+                        "description":"Id do curso",
+                        "required": true
+                    },
+                    {
+                        "name":"description",
+                        "in":"body",
+                        "description":"Descrição do curso",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Caso o curso seja alterado, é retornado um objeto \"course\", com os dados atualizado, caso contrário retorna a mensagem de erro.",
+                        "content":{
+                            "x-www-form-urlencoded":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#components/schemas/User"
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+			}
+		},
+        "/courses/{id}":{
+			"get": {
+				"tags":[" Courses"],
+				"summary": "Busca o curso pelo id",
+				"description": "Retorna o curso cadastrado com o id informado.",
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"Id do curso a ser retornado.",
+                        "required": true
+                    },
+                    {
+                        "name":"user",
+                        "in":"header",
+                        "description":"E-mail do usuário para acesso a Api.",
+                        "required": true
+                    },
+                    {
+                        "name":"password",
+                        "in":"header",
+                        "description":"Senha do usuário. para acessoa a Api",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Se o curso estiver cadastrado, é retornado um objeto \"course\" com seus dados, caso contrário retorna um objeto vazio.",
+                        "content":{
+                            "x-www-form-urlencoded":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#components/schemas/User"
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+			},
+            "delete": {
+				"tags":[" Courses"],
+				"summary": "Excluir curso",
+				"description": "Exclui o curso cadastrado com o id informado.",
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"Id do curso a ser excluído.",
+                        "required": true
+                    },
+                    {
+                        "name":"user",
+                        "in":"header",
+                        "description":"E-mail do usuário para acesso a Api.",
+                        "required": true
+                    },
+                    {
+                        "name":"password",
+                        "in":"header",
+                        "description":"Senha do usuário. para acessoa a Api",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Retorna a mensagem de exito ou falha na operação.",
+                        "content":{
+                            "x-www-form-urlencoded":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#components/schemas/Msg"
+                                }
+                            }
+                        }
+                    }
+                }
+			}
+		}
+    
+    },
+   "components":{
+        "schemas":{
+            "User":{
+                "type":"object",
+            "properties":{
+                "id":{
+                    "type": "integer"
+                },
+                "email":{
+                    "type": "string"
+                },
+                "name":{
+                    "type": "string"
+                },
+                "password":{
+                    "type": "string"
+                }
+
+            }
+            },
+            "Course":{
+                "type":"object",
+            "properties":{
+                "id":{
+                    "type": "integer"
+                },
+                "description":{
+                    "type": "string"
+                }
+            }
+            },
+            "Msg":{
+                "type":"object",
+            "properties":{
+                "Erro":{
+                    "type": "boolean"
+                },
+                "message":{
+                    "type": "string"
+                }
+            }
+            }
+        }
+    }
+}

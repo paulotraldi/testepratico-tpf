@@ -1,0 +1,10 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/backend/node_modules
+/frontend/node_modules
+/backend_json
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
